@@ -1,12 +1,11 @@
 #### flow-chart
 
-g6-editor
+参考g6-editor
      
 属性|类型|默认|值范围|说明
 ---|:--:|---:|---:|---:
 defaultValue | Object | - | object | 默认值
 onSave | Function | - | function | 保存回到方法，返回数据格式同`defaultValue`
-- | - | - | - | -
   
 ------
   
