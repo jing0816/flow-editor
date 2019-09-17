@@ -23,6 +23,7 @@ export default class Editor extends React.Component {
       page.on('afteritemselected', ev => {
         this.setState({
           selectedModel: ev.item.getModel(),
+          inputingLabel: ev.item.getModel().label,
         });
       });
       page.on('afterzoom', ev => {

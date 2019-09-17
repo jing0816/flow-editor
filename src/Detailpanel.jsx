@@ -46,7 +46,7 @@ class Detailpanel extends React.Component {
         <Input
           size="small"
           className="input name-input"
-          value={inputingLabel || selectedModel.label}
+          value={inputingLabel} // || selectedModel.label
           onChange={nameChange}
           onBlur={nameBlur}
         />
