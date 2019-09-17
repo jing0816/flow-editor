@@ -1,6 +1,6 @@
 import React from 'react';
-import G6Editor from './g6Editor';
 import PropTypes from 'prop-types';
+import G6Editor from './g6Editor';
 import './toolbar.css';
 class Toolbar extends React.Component {
   static propTypes = {
@@ -30,7 +30,7 @@ class Toolbar extends React.Component {
       container
     });
   }
-  
+
   render() {
     return (
       <div className="toolbar" ref={this.toolbarRef}>

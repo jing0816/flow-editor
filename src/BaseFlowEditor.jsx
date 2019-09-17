@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Checkbox, Input, InputNumber } from 'antd';
 import ColorPicker from 'rc-color-picker'
 import Editor from './Editor';
@@ -12,6 +13,46 @@ import 'rc-color-picker/assets/index.css';
 import './baseFlowEditor.css';
 
 export default class BaseFlowEditor extends Editor {
+  static propTypes = {
+    defaultValue: PropTypes.object,
+    onSave: PropTypes.func,
+  }
+
+  static defaultProps = {
+    defaultValue: {
+      edges: [{
+        id: "f59d2d4e",
+        index: 2,
+        shape: "flow-polyline-round",
+        source: "9662ab81",
+        sourceAnchor: 1,
+        target: "160e2d67",
+        targetAnchor: 3,
+      }],
+      nodes: [{
+        color: "#FA8C16",
+        id: "9662ab81",
+        index: 0,
+        label: "起止节点",
+        shape: "flow-circle",
+        size: "72*72",
+        type: "node",
+        x: 173,
+        y: 69,
+      }, {
+        color: "#1890FF",
+        id: "160e2d67",
+        index: 1,
+        label: "常规节点",
+        shape: "flow-rect",
+        size: "80*48",
+        type: "node",
+        x: 409,
+        y: 69,
+      }]
+    },
+  };
+
   componentDidMount() {
     super.componentDidMount();
     const editor = this.editor;
@@ -54,6 +95,7 @@ export default class BaseFlowEditor extends Editor {
   }
   
   render() {
+    const { onSave, defaultValue } = this.props;
     const { curZoom, minZoom, maxZoom, selectedModel, inputingLabel } = this.state;
     const splitSize = selectedModel.size ? selectedModel.size.split('*') : '';
     const width = splitSize[0];
@@ -102,7 +144,6 @@ export default class BaseFlowEditor extends Editor {
                       className="input width-input"
                       onChange={value => this.sizeChange(value, height, 'height')}
                     />
-                    *
                     <InputNumber
                       size="small"
                       value={height}
@@ -146,7 +187,11 @@ export default class BaseFlowEditor extends Editor {
             maxZoom={maxZoom}
             changeZoom={this.changeZoom}
           />
-          <Page editor={this.editor} />
+          <Page
+            defaultValue={defaultValue}
+            onSave={onSave}
+            editor={this.editor}
+          />
         </div>
       </div>
     );

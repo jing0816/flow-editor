@@ -12,6 +12,7 @@ export default class Editor extends React.Component {
       minZoom: 0.5, // 最小缩放比率
       maxZoom: 2 // 最大缩放比率
     };
+    G6Editor.track(false);
     this.editor = new G6Editor();
   }
 

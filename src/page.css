@@ -2,3 +2,8 @@
   margin-left: 200px; 
   margin-right: 200px;
 }
+.save {
+  position: absolute;
+  right: 220px;
+  top: 60px;
+}

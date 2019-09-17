@@ -1,6 +1,6 @@
 import React from 'react';
-import G6Editor from './g6Editor';
 import PropTypes from 'prop-types';
+import G6Editor from './g6Editor';
 import './itempanel.css';
 
 class Itempanel extends React.Component {
