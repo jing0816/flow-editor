@@ -5,6 +5,8 @@
   bottom: 0px;
   right: 0px;
   z-index: 3;
+  background-color: #F7F9FB;
+  border-left: 1px solid #E6E9ED; 
 }
 #navigator .slider{
   margin: 7px 10px 10px;
@@ -14,7 +16,6 @@
 #navigator #minimap{
   width: 200px;
   height: 120px;
-  border-left: 1px solid #E6E9ED;
 }
 .zoom-dropdown-btn {
   color: rgba(0,0,0,0.45);

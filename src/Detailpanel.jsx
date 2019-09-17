@@ -69,6 +69,9 @@ class Detailpanel extends React.Component {
         <div data-status="node-selected" className="panel">
           <div className="panel-title">节点</div>
           <div className="block-container">
+            <div className="p">
+              id：<span className="input">{selectedModel.id}</span>
+            </div>
             {labelInput}
             <div className="p">
               尺寸：

@@ -11,8 +11,9 @@ input{
   display: block;
 }
 .editor{
-  position: relative;
+  position: absolute;
   width: 100%;
+  height: 100%;
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;

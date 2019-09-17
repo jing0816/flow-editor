@@ -19,6 +19,13 @@ class Contextmenu extends React.Component {
     const createContextmenu = this.getCreateContextmenu();
     const contextmenu = createContextmenu(this.contextmenuRef.current);
     editor.add(contextmenu);
+    // const Command = G6Editor.Command;
+    // Command.registerCommand('delete', {
+    //   enable(a) {
+    //     console.log(a);
+    //     // return true;
+    //   }
+    // });
   }
 
   getCreateContextmenu() {
