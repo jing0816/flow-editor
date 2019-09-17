@@ -39,7 +39,7 @@ export default class Editor extends React.Component {
     page.zoom(zoom);
   }
 
-  toggleGrid(ev) {
+  toggleGrid = ev => {
     const editor = this.editor;
     const page = editor.getCurrentPage();
     if (ev.target.checked) {
