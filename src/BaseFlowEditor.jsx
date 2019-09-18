@@ -60,19 +60,6 @@ export default class BaseFlowEditor extends Editor {
     });
   }
 
-  nameChange = ev => {
-    this.setState({
-      inputingLabel: ev.target.value,
-    });
-  }
-
-  nameBlur = ev => {
-    this.updateGraph('label', ev.target.value);
-    this.setState({
-      inputingLabel: null,
-    });
-  }
-
   colorClose = ev => {
     this.updateGraph('color', ev.color);
   }
@@ -91,10 +78,22 @@ export default class BaseFlowEditor extends Editor {
     });
     this.updateGraph('size', newSize);
   }
+
+  handleChange = (ev, key) => {
+    const stateObj = {};
+    stateObj[key] = ev.target.value;
+    this.setState(stateObj);
+  }
+
+  handleBlur = (ev, key) => {
+    const stateObj = {};
+    stateObj[key] = null;
+    this.updateGraph(key, ev.target.value);
+  }
   
   render() {
     const { onSave, defaultValue } = this.props;
-    const { curZoom, minZoom, maxZoom, selectedModel, inputingLabel } = this.state;
+    const { curZoom, minZoom, maxZoom, selectedModel, label, expression, lineLogicExpression } = this.state;
     
     return (
       <div className="editor">
@@ -103,14 +102,16 @@ export default class BaseFlowEditor extends Editor {
           <Contextmenu editor={this.editor} />
           <Itempanel editor={this.editor} />
           <Detailpanel
-            inputingLabel={inputingLabel}
+            label={label}
             selectedModel={selectedModel}
             editor={this.editor}
-            nameChange={this.nameChange}
-            nameBlur={this.nameBlur}
+            handleChange={this.handleChange}
+            handleBlur={this.handleBlur}
             colorClose={this.colorClose}
             sizeChange={(value, val, type) => this.sizeChange(value, val, type)}
             toggleGrid={this.toggleGrid}
+            expression={expression}
+            lineLogicExpression={lineLogicExpression}
           />
           <Navigator
             editor={this.editor}

@@ -36,7 +36,7 @@ class Detailpanel extends React.Component {
   }
   
   render() {
-    const { selectedModel, inputingLabel, nameChange, nameBlur, colorClose, sizeChange, toggleGrid } = this.props;
+    const { selectedModel, label, handleChange, handleBlur, colorClose, sizeChange, toggleGrid, expression, lineLogicExpression } = this.props;
     const splitSize = selectedModel.size ? selectedModel.size.split('*') : '';
     const width = splitSize[0];
     const height = splitSize[1];
@@ -46,9 +46,9 @@ class Detailpanel extends React.Component {
         <Input
           size="small"
           className="input name-input"
-          value={inputingLabel} // || selectedModel.label
-          onChange={nameChange}
-          onBlur={nameBlur}
+          value={label}
+          onChange={ev => handleChange(ev, 'label')}
+          onBlur={ev => handleBlur(ev, 'label')}
         />
       </div>
     );
@@ -88,13 +88,36 @@ class Detailpanel extends React.Component {
                 onChange={value => sizeChange(value, width, 'width')}
               />
             </div>
-            {colorInput}
+            <div className="p">
+              节点逻辑：
+              <Input
+                size="small"
+                className="input name-input"
+                value={lineLogicExpression}
+                onChange={ev => handleChange(ev, 'lineLogicExpression')}
+                onBlur={ev => handleBlur(ev, 'lineLogicExpression')}
+              />
+            </div>
+            {/* {colorInput} */}
           </div>
         </div>
         <div data-status="edge-selected" className="panel" id="edge_detailpanel">
           <div className="panel-title">边</div>
           <div className="block-container">
+            <div className="p">
+              id：<span className="input">{selectedModel.id}</span>
+            </div>
             {labelInput}
+            <div className="p">
+              表达式：
+              <Input
+                size="small"
+                className="input name-input"
+                value={expression}
+                onChange={ev => handleChange(ev, 'expressionChange')}
+                onBlur={ev => handleBlur(ev, 'expressionChange')}
+              />
+            </div>
           </div>
         </div>
         <div data-status="group-selected" className="panel" id="group_detailpanel">
@@ -112,7 +135,7 @@ class Detailpanel extends React.Component {
         <div data-status="multi-selected" className="panel" id="multi_detailpanel">
           <div className="panel-title">多选</div>
           <div className="block-container">
-            {colorInput}
+            {/* {colorInput} */}
           </div>
         </div>
       </div>
