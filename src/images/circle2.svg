@@ -15,9 +15,11 @@
                 <circle id="椭圆形" stroke="#00CC8A" cx="36" cy="36" r="35.5"></circle>
             </g>
             <g id="起止节点" transform="translate(25.000000, 27.000000)" fill="#000000" fill-opacity="0.65" font-family="PingFangSC-Regular, PingFang SC" font-size="12" font-weight="normal">
-                <text id="开始">
-                    <tspan x="0" y="13">开始</tspan>
-                </text>
+                <g id="开始">
+                    <text id="结束">
+                        <tspan x="0" y="13">结束</tspan>
+                    </text>
+                </g>
             </g>
         </g>
     </g>

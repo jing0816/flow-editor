@@ -36,8 +36,11 @@ class Itempanel extends React.Component {
     return (
       <div className="itempanel" ref={this.itempanelRef}>
         <img draggable="false" src={require("./images/circle.svg")}
-          data-type="node" data-shape="flow-circle" data-size="72*72" data-color="#FA8C16" data-label="起止节点" className="getItem" />
-        <img draggable="false" src={require("./images/rect.svg")} data-type="node" data-shape="flow-rect" data-size="80*48" data-color="#1890FF" data-label="常规节点" className="getItem" />
+          data-type="node" data-shape="flow-circle" data-size="72*72" data-color="#00cc8a" data-label="开始" className="getItem" data-nodetype="0" />
+        <img draggable="false" src={require("./images/rect.svg")} data-type="node" data-shape="flow-rect" data-size="80*48" data-color="#1890FF" data-label="常规节点" className="getItem" data-nodetype="2" />
+        <img draggable="false" src={require("./images/circle2.svg")}
+          data-type="node" data-shape="flow-circle" data-size="72*72" data-color="#00cc8a" data-label="结束" className="getItem" data-nodetype="1" />
+        <img draggable="false" src={require("./images/rect2.svg")} data-type="node" data-shape="flow-rect" data-size="80*48" data-color="#1890FF" data-label="发起人" className="getItem" data-nodetype="3" />
         {/* <img draggable="false" src={require("./images/rhombus.svg")} data-type="node" data-shape="flow-rhombus" data-size="80*72" data-color="#13C2C2" data-label="分叉节点" className="getItem" />
         <img draggable="false" src={require("./images/capsule.svg")} data-type="node" data-shape="flow-capsule" data-size="80*48" data-color="#722ED1" data-label="模型节点" className="getItem" /> */}
       </div>

@@ -14,10 +14,12 @@
                 </g>
                 <rect id="矩形" stroke="#1890FF" x="0.5" y="0.5" width="79" height="47" rx="4"></rect>
             </g>
-            <g id="常规节点" transform="translate(16.000000, 16.000000)" fill="#000000" fill-opacity="0.65" font-family="PingFangSC-Regular, PingFang SC" font-size="12" font-weight="normal">
-                <text>
-                    <tspan x="0" y="13">常规节点</tspan>
-                </text>
+            <g id="常规节点" transform="translate(23.000000, 16.000000)" fill="#000000" fill-opacity="0.65" font-family="PingFangSC-Regular, PingFang SC" font-size="12" font-weight="normal">
+                <g id="分组">
+                    <text id="发起人">
+                        <tspan x="0" y="13">发起人</tspan>
+                    </text>
+                </g>
             </g>
         </g>
     </g>

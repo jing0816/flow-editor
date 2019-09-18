@@ -37,6 +37,7 @@
   padding-top: 42px;
   height: 100%;
   box-sizing: border-box;
+  overflow: hidden;
 }
 .panel-title{
   height: 32px;

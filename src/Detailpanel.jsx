@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Checkbox, Input, InputNumber } from 'antd';
 import ColorPicker from 'rc-color-picker';
 import G6Editor from './g6Editor';
+import Noderules from './Noderules';
 import './detailpanel.css';
 
 class Detailpanel extends React.Component {
@@ -36,7 +37,7 @@ class Detailpanel extends React.Component {
   }
   
   render() {
-    const { selectedModel, label, handleChange, handleBlur, colorClose, sizeChange, toggleGrid, expression, lineLogicExpression } = this.props;
+    const { selectedModel, label, handleChange, handleBlur, colorClose, sizeChange, toggleGrid, memo, lineLogicExpression } = this.props;
     const splitSize = selectedModel.size ? selectedModel.size.split('*') : '';
     const width = splitSize[0];
     const height = splitSize[1];
@@ -98,6 +99,7 @@ class Detailpanel extends React.Component {
                 onBlur={ev => handleBlur(ev, 'lineLogicExpression')}
               />
             </div>
+            <Noderules />
             {/* {colorInput} */}
           </div>
         </div>
@@ -107,15 +109,24 @@ class Detailpanel extends React.Component {
             <div className="p">
               id：<span className="input">{selectedModel.id}</span>
             </div>
-            {labelInput}
             <div className="p">
               表达式：
               <Input
                 size="small"
                 className="input name-input"
-                value={expression}
-                onChange={ev => handleChange(ev, 'expressionChange')}
-                onBlur={ev => handleBlur(ev, 'expressionChange')}
+                value={label}
+                onChange={ev => handleChange(ev, 'label')}
+                onBlur={ev => handleBlur(ev, 'label')}
+              />
+            </div>
+            <div className="p">
+              备注：
+              <Input
+                size="small"
+                className="input name-input"
+                value={memo}
+                onChange={ev => handleChange(ev, 'memo')}
+                onBlur={ev => handleBlur(ev, 'memo')}
               />
             </div>
           </div>

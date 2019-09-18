@@ -1,0 +1,52 @@
+.rules-btn {
+}
+.rules-group {
+  border-bottom: 1px dashed #e2e0e0;
+  padding-bottom: 8px;
+  position: relative;
+  cursor: pointer;
+  margin-top: 5px;
+}
+.rules-group:last-child {
+  border: none;
+  padding-bottom: 0;
+}
+.rules-group:hover:before {
+  display: block;
+  content: '';
+  border: 1px solid #e2e0e0;
+  position: absolute;
+  width: calc(100% + 10px);
+  height: 74px;
+  left: -5px;
+  top: -1px;
+}
+.rules-group:hover .rules-close {
+  display: block;
+}
+.rules-close {
+  position: absolute;
+  top: -6px;
+  right: 20px;
+  font-size: 10px;
+  color: #aaa;
+  padding: 0 5px;
+  background: #F7F9FB;
+  z-index: 1;
+  display: none;
+}
+.rules-close:hover {
+  color: #40a9ff;
+}
+.rules-group .ant-select {
+  width: 90px;
+  margin-top: 8px;
+}
+.rules-group .ant-select:nth-last-of-type(2n+1) {
+  margin-right: 2px;
+}
+.detailpanel .rules-group .ant-input {
+  width: 90px;
+  margin-left: 0;
+  margin-top: 8px;
+}

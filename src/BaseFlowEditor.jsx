@@ -18,36 +18,36 @@ export default class BaseFlowEditor extends Editor {
 
   static defaultProps = {
     defaultValue: {
-      edges: [{
-        id: "f59d2d4e",
-        index: 2,
-        shape: "flow-polyline-round",
-        source: "9662ab81",
-        sourceAnchor: 1,
-        target: "160e2d67",
-        targetAnchor: 3,
-      }],
-      nodes: [{
-        color: "#FA8C16",
-        id: "9662ab81",
-        index: 0,
-        label: "起止节点",
-        shape: "flow-circle",
-        size: "72*72",
-        type: "node",
-        x: 173,
-        y: 69,
-      }, {
-        color: "#1890FF",
-        id: "160e2d67",
-        index: 1,
-        label: "常规节点",
-        shape: "flow-rect",
-        size: "80*48",
-        type: "node",
-        x: 409,
-        y: 69,
-      }]
+      // edges: [{
+      //   id: "f59d2d4e",
+      //   index: 2,
+      //   shape: "flow-polyline-round",
+      //   source: "9662ab81",
+      //   sourceAnchor: 1,
+      //   target: "160e2d67",
+      //   targetAnchor: 3,
+      // }],
+      // nodes: [{
+      //   color: "#FA8C16",
+      //   id: "9662ab81",
+      //   index: 0,
+      //   label: "起止节点",
+      //   shape: "flow-circle",
+      //   size: "72*72",
+      //   type: "node",
+      //   x: 173,
+      //   y: 69,
+      // }, {
+      //   color: "#1890FF",
+      //   id: "160e2d67",
+      //   index: 1,
+      //   label: "常规节点",
+      //   shape: "flow-rect",
+      //   size: "80*48",
+      //   type: "node",
+      //   x: 409,
+      //   y: 69,
+      // }]
     },
   };
 
@@ -93,7 +93,7 @@ export default class BaseFlowEditor extends Editor {
   
   render() {
     const { onSave, defaultValue } = this.props;
-    const { curZoom, minZoom, maxZoom, selectedModel, label, expression, lineLogicExpression } = this.state;
+    const { curZoom, minZoom, maxZoom, selectedModel, label, memo, lineLogicExpression } = this.state;
     
     return (
       <div className="editor">
@@ -110,7 +110,7 @@ export default class BaseFlowEditor extends Editor {
             colorClose={this.colorClose}
             sizeChange={this.sizeChange}
             toggleGrid={this.toggleGrid}
-            expression={expression}
+            memo={memo}
             lineLogicExpression={lineLogicExpression}
           />
           <Navigator
