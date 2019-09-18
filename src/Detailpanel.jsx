@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Checkbox, Input, InputNumber } from 'antd';
 import ColorPicker from 'rc-color-picker';
 import G6Editor from './g6Editor';
-import Noderules from './Noderules';
 import './detailpanel.css';
 
 class Detailpanel extends React.Component {
@@ -99,7 +98,7 @@ class Detailpanel extends React.Component {
                 onBlur={ev => handleBlur(ev, 'lineLogicExpression')}
               />
             </div>
-            <Noderules />
+            {/* <Noderules /> */}
             {/* {colorInput} */}
           </div>
         </div>

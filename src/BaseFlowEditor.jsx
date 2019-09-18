@@ -7,6 +7,7 @@ import Itempanel from './Itempanel';
 import Detailpanel from './Detailpanel';
 import Navigator from './Navigator';
 import Page from './Page';
+import Rulespanel from './Rulespanel';
 import 'rc-color-picker/assets/index.css';
 import './baseFlowEditor.css';
 
@@ -113,6 +114,7 @@ export default class BaseFlowEditor extends Editor {
             memo={memo}
             lineLogicExpression={lineLogicExpression}
           />
+          <Rulespanel editor={this.editor} />
           <Navigator
             editor={this.editor}
             curZoom={curZoom}
