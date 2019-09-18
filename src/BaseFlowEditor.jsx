@@ -108,7 +108,7 @@ export default class BaseFlowEditor extends Editor {
             handleChange={this.handleChange}
             handleBlur={this.handleBlur}
             colorClose={this.colorClose}
-            sizeChange={(value, val, type) => this.sizeChange(value, val, type)}
+            sizeChange={this.sizeChange}
             toggleGrid={this.toggleGrid}
             expression={expression}
             lineLogicExpression={lineLogicExpression}
