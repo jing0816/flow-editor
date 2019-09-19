@@ -9,10 +9,10 @@
   border-right: 1px solid #E6E9ED;
 }
 .itempanel img{
-  width: 92px;
-  height: 96px;
+  width: 75px;
+  height: 75px;
   padding: 4px;
-  margin-left: 4px;
+  margin-left: 11px;
   border-radius: 2px;
   border: 1px solid rgba(0,0,0,0);
 }
