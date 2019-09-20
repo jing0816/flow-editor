@@ -28,8 +28,10 @@ class Rulespanel extends React.Component {
               isLeaf: false,
             },
           ],
-          param: '',
-          content: '',
+          typeVal: '',
+          param: [],
+          paramVal: '',
+          contentVal: '',
         },
         {
           type: [
@@ -44,8 +46,10 @@ class Rulespanel extends React.Component {
               isLeaf: false,
             },
           ],
-          param: '',
-          content: '',
+          typeVal: '',
+          param: [],
+          paramVal: '',
+          contentVal: '',
         },
       ],
     };
@@ -71,33 +75,6 @@ class Rulespanel extends React.Component {
     });
   }
 
-  loadData(selectedOptions, i) {
-    const targetOption = selectedOptions[selectedOptions.length - 1];
-    targetOption.loading = true;
-
-    setTimeout(() => {
-      targetOption.loading = false;
-      targetOption.children = [
-        {
-          label: `${targetOption.label} Dynamic 1`,
-          value: 'dynamic1',
-        },
-        {
-          label: `${targetOption.label} Dynamic 2`,
-          value: 'dynamic2',
-        },
-      ];
-      
-      this.setState({
-        options: [...this.state.data],
-      });
-    }, 1000);
-  }
-
-  onChange = (value, selectedOptions) => {
-    // console.log(value, selectedOptions);
-  }
-
   add = () => {
     const { data } = this.state;
     data.push({
@@ -113,8 +90,6 @@ class Rulespanel extends React.Component {
           isLeaf: false,
         },
       ],
-      param: '',
-      content: '',
     });
     this.setState({
       data,
@@ -132,8 +107,66 @@ class Rulespanel extends React.Component {
     });
   }
 
-  typeChange = value => {
-    // console.log(value);
+  loadData(selectedOptions, i) {
+    const { data } = this.state;
+    const targetOption = selectedOptions[selectedOptions.length - 1];
+    targetOption.loading = true;
+
+    setTimeout(() => {
+      targetOption.loading = false;
+      targetOption.children = [
+        {
+          label: `${targetOption.label} Dynamic 1`,
+          value: 'dynamic1',
+        },
+        {
+          label: `${targetOption.label} Dynamic 2`,
+          value: 'dynamic2',
+        },
+      ];
+      data[i].param = [{
+        name: `${targetOption.label} Dynamic 1`,
+        value: `${targetOption.label} Dynamic 1`,
+      },{
+        name: `${targetOption.label} Dynamic 2`,
+        value: `${targetOption.label} Dynamic 2`,
+      }];
+      this.setState({
+        data: [...this.state.data],
+      });
+    }, 1000);
+  }
+
+  typeChange(value, i) {
+    const { data } = this.state;
+    const val = data[i].typeVal;
+    if(val !== '') {
+      data[i].paramVal = val.join(',') !== value.join(',') ? '' : data[i].paramVal;
+    }
+    data[i].typeVal = value;
+    this.setState({
+      data: [...this.state.data],
+    });
+  }
+
+  paramChange(value, i) {
+    const { data } = this.state;
+    data[i].paramVal = value;
+    this.setState({
+      data: [...this.state.data],
+    });
+  }
+
+  contentChange(ev, i) {
+    const { data } = this.state;
+    data[i].contentVal = ev.target.value;
+    this.setState({
+      data: [...this.state.data],
+    });
+  }
+
+  contentBlur(ev, i) {
+    
   }
   
   render() {
@@ -164,26 +197,31 @@ class Rulespanel extends React.Component {
                       placeholder="请选择类型规则"
                       options={v.type}
                       loadData={selectedOptions => this.loadData(selectedOptions, i)}
-                      onChange={this.typeChange}
-                      changeOnSelect
+                      onChange={value => this.typeChange(value, i)}
+                      defaultValue={["zhejiang", "dynamic1"]}
+                      value={v.typeVal}
                     />
                     <Select
                       size="small"
                       className="rules-param"
                       placeholder="请选择参数来源"
-                      // onChange={this.handleChange(data)}
+                      defaultValue="Zhejiang Dynamic 2"
+                      value={v.paramVal}
+                      onChange={value => this.paramChange(value, i)}
                     >
-                      <Option title="333" value="jack">规则规则规则</Option>
-                      <Option value="lucy">Lucy</Option>
-                      <Option value="Yiminghe">yiminghe</Option>
+                      {
+                        v.param.length && v.param.map((m, n) => {
+                          return <Option key={m.value} value={m.value}>{m.name}</Option>;
+                        })
+                      }
                     </Select>
                     <Input
                       size="small"
                       className="input rules-content"
                       placeholder="请填写规则内容"
-                      // value={lineLogicExpression}
-                      // onChange={ev => handleChange}
-                      // onBlur={ev => handleBlur(ev, 'lineLogicExpression')}
+                      value={v.contentVal}
+                      onChange={ev => this.contentChange(ev, i)}
+                      onBlur={ev => this.contentBlur(ev, i)}
                     />
                   </div>
                 );
