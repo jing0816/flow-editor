@@ -90,6 +90,10 @@ class Rulespanel extends React.Component {
           isLeaf: false,
         },
       ],
+      typeVal: '',
+      param: [],
+      paramVal: '',
+      contentVal: '',
     });
     this.setState({
       data,
@@ -166,7 +170,7 @@ class Rulespanel extends React.Component {
   }
 
   contentBlur(ev, i) {
-    
+
   }
   
   render() {
