@@ -29,6 +29,7 @@ export default class BaseFlowEditor extends Editor {
         target: "74bb9f0a",
         targetAnchor: 3,
         memo: '备注',
+        label: 'a<=10',
       }],
       nodes: [{
         color: "#00cc8a",
