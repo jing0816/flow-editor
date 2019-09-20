@@ -13,6 +13,7 @@ import './baseFlowEditor.css';
 
 export default class BaseFlowEditor extends Editor {
   static propTypes = {
+    bpmTemplateVersionId: PropTypes.number,
     defaultValue: PropTypes.object,
     onSave: PropTypes.func,
   }
@@ -20,34 +21,37 @@ export default class BaseFlowEditor extends Editor {
   static defaultProps = {
     defaultValue: {
       edges: [{
-        id: "f59d2d4e",
-        // index: 2,
+        id: "24b9c7e6",
+        index: 1,
         shape: "flow-polyline-round",
-        source: "9662ab81",
+        source: "ddd8aaf5",
         sourceAnchor: 1,
-        target: "160e2d67",
+        target: "74bb9f0a",
         targetAnchor: 3,
+        memo: '备注',
       }],
       nodes: [{
-        color: "#FA8C16",
-        id: "9662ab81",
-        // index: 0,
-        label: "起止节点",
+        color: "#00cc8a",
+        id: "ddd8aaf5",
+        index: 0,
+        label: "开始",
+        nodetype: "0",
         shape: "flow-circle",
         size: "72*72",
-        // type: "node",
-        x: 173,
-        y: 69,
+        type: "node",
+        x: 113,
+        y: 48,
       }, {
         color: "#1890FF",
-        id: "160e2d67",
-        // index: 1,
+        id: "74bb9f0a",
+        index: 2,
         label: "常规节点",
+        nodetype: "2",
         shape: "flow-rect",
         size: "80*48",
-        // type: "node",
-        x: 409,
-        y: 69,
+        type: "node",
+        x: 362.5,
+        y: 48,
       }]
     },
   };

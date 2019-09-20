@@ -14,20 +14,43 @@ class Rulespanel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      list: [
+      data: [
         {
-          value: 'zhejiang',
-          label: 'Zhejiang',
-          isLeaf: false,
+          type: [
+            {
+              value: 'zhejiang',
+              label: 'Zhejiang',
+              isLeaf: false,
+            },
+            {
+              value: 'jiangsu',
+              label: 'Jiangsu',
+              isLeaf: false,
+            },
+          ],
+          param: '',
+          content: '',
         },
         {
-          value: 'jiangsu',
-          label: 'Jiangsu',
-          isLeaf: false,
+          type: [
+            {
+              value: 'zhejiang',
+              label: 'Zhejiang',
+              isLeaf: false,
+            },
+            {
+              value: 'jiangsu',
+              label: 'Jiangsu',
+              isLeaf: false,
+            },
+          ],
+          param: '',
+          content: '',
         },
       ],
     };
     this.rulespanelRef = React.createRef();
+    this.rulesboxRef = React.createRef();
   }
 
   componentDidMount() {
@@ -48,11 +71,10 @@ class Rulespanel extends React.Component {
     });
   }
 
-  loadData = selectedOptions => {
+  loadData(selectedOptions, i) {
     const targetOption = selectedOptions[selectedOptions.length - 1];
     targetOption.loading = true;
 
-    // load options lazily
     setTimeout(() => {
       targetOption.loading = false;
       targetOption.children = [
@@ -65,100 +87,108 @@ class Rulespanel extends React.Component {
           value: 'dynamic2',
         },
       ];
+      
       this.setState({
-        options: [...this.state.options],
+        options: [...this.state.data],
       });
     }, 1000);
   }
 
   onChange = (value, selectedOptions) => {
-    console.log(value, selectedOptions);
+    // console.log(value, selectedOptions);
+  }
+
+  add = () => {
+    const { data } = this.state;
+    data.push({
+      type: [
+        {
+          value: 'zhejiang',
+          label: 'Zhejiang',
+          isLeaf: false,
+        },
+        {
+          value: 'jiangsu',
+          label: 'Jiangsu',
+          isLeaf: false,
+        },
+      ],
+      param: '',
+      content: '',
+    });
+    this.setState({
+      data,
+    });
+    setTimeout(() => {
+      this.rulesboxRef.current.scrollTop = 46 * data.length;
+    }, 1);
+  }
+
+  del(i) {
+    const { data } = this.state;
+    data.splice(i, 1)
+    this.setState({
+      data,
+    });
+  }
+
+  typeChange = value => {
+    // console.log(value);
   }
   
   render() {
-    const { list } = this.state;
+    const { data } = this.state;
 
     return (
       <div className="rulespanel" ref={this.rulespanelRef}>
         <div data-status="node-selected" className="panel">
-          <Button className="rules-btn" type="primary" ghost size="small">新增规则</Button>
-          <div className="rules-box">
-            <div className="rules-group">
-              <Icon className="rules-close" type="close" />
-              <Cascader
-                className="rules-type"
-                size="small"
-                placeholder="请选择类型规则"
-                options={list}
-                loadData={this.loadData}
-                onChange={this.onChange}
-                changeOnSelect
-              />
-              <Select size="small" className="rules-param" placeholder="请选择参数来源">
-                <Option title="333" value="jack">规则规则规则</Option>
-                <Option value="lucy">Lucy</Option>
-                <Option value="Yiminghe">yiminghe</Option>
-              </Select>
-              <Input
-                size="small"
-                className="input rules-content"
-                placeholder="请填写规则内容"
-                // value={lineLogicExpression}
-                // onChange={ev => handleChange(ev, 'lineLogicExpression')}
-                // onBlur={ev => handleBlur(ev, 'lineLogicExpression')}
-              />
-            </div>
-            <div className="rules-group">
-              <Icon className="rules-close" type="close" />
-              <Cascader
-                className="rules-type"
-                size="small"
-                placeholder="请选择类型规则"
-                options={list}
-                loadData={this.loadData}
-                onChange={this.onChange}
-                changeOnSelect
-              />
-              <Select size="small" className="rules-param" placeholder="请选择参数来源">
-                <Option title="333" value="jack">规则规则规则</Option>
-                <Option value="lucy">Lucy</Option>
-                <Option value="Yiminghe">yiminghe</Option>
-              </Select>
-              <Input
-                size="small"
-                className="input rules-content"
-                placeholder="请填写规则内容"
-                // value={lineLogicExpression}
-                // onChange={ev => handleChange(ev, 'lineLogicExpression')}
-                // onBlur={ev => handleBlur(ev, 'lineLogicExpression')}
-              />
-            </div>
-          
-            <div className="rules-group">
-              <Icon className="rules-close" type="close" />
-              <Cascader
-                className="rules-type"
-                size="small"
-                placeholder="请选择类型规则"
-                options={list}
-                loadData={this.loadData}
-                onChange={this.onChange}
-                changeOnSelect
-              />
-              <Select size="small" className="rules-param" placeholder="请选择参数来源">
-                <Option title="333" value="jack">规则规则规则</Option>
-                <Option value="lucy">Lucy</Option>
-                <Option value="Yiminghe">yiminghe</Option>
-              </Select>
-              <Input
-                size="small"
-                className="input rules-content"
-                placeholder="请填写规则内容"
-                // value={lineLogicExpression}
-                // onChange={ev => handleChange(ev, 'lineLogicExpression')}
-                // onBlur={ev => handleBlur(ev, 'lineLogicExpression')}
-              />
-            </div>
+          <Icon type="down" />
+          <Button
+            className="rules-btn"
+            type="primary"
+            ghost
+            size="small"
+            onClick={this.add}
+          >
+            新增规则
+          </Button>
+          <div className="rules-box" ref={this.rulesboxRef}>
+            {
+              data.map((v, i) => {
+                return (
+                  <div key={i} className="rules-group">
+                    <Icon className="rules-close" type="close" onClick={() => this.del(i)} />
+                    <Cascader
+                      className="rules-type"
+                      size="small"
+                      placeholder="请选择类型规则"
+                      options={v.type}
+                      loadData={selectedOptions => this.loadData(selectedOptions, i)}
+                      onChange={this.typeChange}
+                      changeOnSelect
+                    />
+                    <Select
+                      size="small"
+                      className="rules-param"
+                      placeholder="请选择参数来源"
+                      // onChange={this.handleChange(data)}
+                    >
+                      <Option title="333" value="jack">规则规则规则</Option>
+                      <Option value="lucy">Lucy</Option>
+                      <Option value="Yiminghe">yiminghe</Option>
+                    </Select>
+                    <Input
+                      size="small"
+                      className="input rules-content"
+                      placeholder="请填写规则内容"
+                      // value={lineLogicExpression}
+                      // onChange={ev => handleChange}
+                      // onBlur={ev => handleBlur(ev, 'lineLogicExpression')}
+                    />
+                  </div>
+                );
+              })
+            }
           </div>
         </div>
       </div>
