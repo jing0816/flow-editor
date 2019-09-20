@@ -42,6 +42,9 @@ export default class BaseFlowEditor extends Editor {
         type: "node",
         x: 113,
         y: 48,
+        message: '备注',
+        lineLogicExpression: '1&2',
+        paramCallback: 'http://www.liepin.com',
       }, {
         color: "#1890FF",
         id: "74bb9f0a",
@@ -99,7 +102,7 @@ export default class BaseFlowEditor extends Editor {
   
   render() {
     const { onSave, defaultValue } = this.props;
-    const { curZoom, minZoom, maxZoom, selectedModel, label, memo, lineLogicExpression } = this.state;
+    const { curZoom, minZoom, maxZoom, selectedModel, label, memo, lineLogicExpression, message, paramCallback } = this.state;
     
     return (
       <div className="editor">
@@ -117,7 +120,9 @@ export default class BaseFlowEditor extends Editor {
             sizeChange={this.sizeChange}
             toggleGrid={this.toggleGrid}
             memo={memo}
+            message={message}
             lineLogicExpression={lineLogicExpression}
+            paramCallback={paramCallback}
           />
           <Rulespanel editor={this.editor} />
           <Navigator

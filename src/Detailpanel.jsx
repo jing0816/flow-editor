@@ -36,7 +36,7 @@ class Detailpanel extends React.Component {
   }
   
   render() {
-    const { selectedModel, label, handleChange, handleBlur, colorClose, sizeChange, toggleGrid, memo, lineLogicExpression } = this.props;
+    const { selectedModel, label, handleChange, handleBlur, colorClose, sizeChange, toggleGrid, memo, lineLogicExpression, message, paramCallback } = this.props;
     const splitSize = selectedModel.size ? selectedModel.size.split('*') : '';
     const width = splitSize[0];
     const height = splitSize[1];
@@ -74,6 +74,16 @@ class Detailpanel extends React.Component {
             </div>
             {labelInput}
             <div className="p">
+              备注：
+              <Input
+                size="small"
+                className="input name-input"
+                value={message}
+                onChange={ev => handleChange(ev, 'message')}
+                onBlur={ev => handleBlur(ev, 'message')}
+              />
+            </div>
+            <div className="p">
               尺寸：
               <InputNumber
                 size="small"
@@ -96,6 +106,16 @@ class Detailpanel extends React.Component {
                 value={lineLogicExpression}
                 onChange={ev => handleChange(ev, 'lineLogicExpression')}
                 onBlur={ev => handleBlur(ev, 'lineLogicExpression')}
+              />
+            </div>
+            <div className="p">
+              审批URL：
+              <Input
+                size="small"
+                className="input name-input"
+                value={paramCallback}
+                onChange={ev => handleChange(ev, 'paramCallback')}
+                onBlur={ev => handleBlur(ev, 'paramCallback')}
               />
             </div>
             {/* <Noderules /> */}
