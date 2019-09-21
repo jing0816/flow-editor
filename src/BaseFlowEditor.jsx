@@ -45,6 +45,14 @@ export default class BaseFlowEditor extends Editor {
         message: '备注',
         lineLogicExpression: '1&2',
         paramCallback: 'http://www.liepin.com',
+        ruleFormList: [
+          {
+            inputParam: "dageae",
+            paramType: "Zhejiang Dynamic 1",
+            ruleConfigId: "dynamic2",
+            ruleType: "zhejiang",
+          }
+        ],
       }, {
         color: "#1890FF",
         id: "74bb9f0a",
@@ -99,10 +107,17 @@ export default class BaseFlowEditor extends Editor {
     stateObj[key] = null;
     this.updateGraph(key, ev.target.value);
   }
+
+  rulesChange = data => {
+    this.setState({
+      ruleFormList: data,
+    });
+    this.updateGraph('ruleFormList', data);
+  }
   
   render() {
     const { onSave, defaultValue } = this.props;
-    const { curZoom, minZoom, maxZoom, selectedModel, label, memo, lineLogicExpression, message, paramCallback } = this.state;
+    const { curZoom, minZoom, maxZoom, selectedModel, label, memo, lineLogicExpression, message, paramCallback, ruleFormList } = this.state;
     
     return (
       <div className="editor">
@@ -124,7 +139,11 @@ export default class BaseFlowEditor extends Editor {
             lineLogicExpression={lineLogicExpression}
             paramCallback={paramCallback}
           />
-          <Rulespanel editor={this.editor} />
+          <Rulespanel
+            editor={this.editor}
+            data={ruleFormList}
+            onChange={this.rulesChange}
+          />
           <Navigator
             editor={this.editor}
             curZoom={curZoom}

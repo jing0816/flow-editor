@@ -4,6 +4,34 @@ import G6Editor from './g6Editor';
 import { Button, Select, Input, Icon, Cascader } from 'antd';
 import './rulespanel.css';
 
+const formatData = data => {
+  const arr = [];
+  if(data) {
+    data.map(v => {
+      arr.push({
+        type: [
+          {
+            value: 'zhejiang',
+            label: 'Zhejiang',
+            isLeaf: false,
+          },
+          {
+            value: 'jiangsu',
+            label: 'Jiangsu',
+            isLeaf: false,
+          },
+        ],
+        typeVal: [data.ruleType, data.ruleConfigId],
+        param: [],
+        paramVal: data.paramType,
+        contentVal: data.inputParam,
+      });
+    });
+    return arr;
+  } else {
+    return false;
+  }
+}
 class Rulespanel extends React.Component {
   static propTypes = {
     createDetailpanel: PropTypes.func,
@@ -14,6 +42,7 @@ class Rulespanel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      prevPropData: '',
       data: [
         {
           type: [
@@ -57,6 +86,18 @@ class Rulespanel extends React.Component {
     this.rulesboxRef = React.createRef();
   }
 
+  // static getDerivedStateFromProps(props, state) {
+  //   const { data } = props;
+  //   const dataArr = formatData(data);
+  //   if(JSON.stringify(dataArr) !== JSON.stringify(state.prevPropData)) {
+  //     return {
+  //       data: dataArr,
+  //       prevPropData: dataArr,
+  //     };
+  //   }
+  //   return null;
+  // }
+
   componentDidMount() {
     const { editor } = this.props;
     const createDetailpanel = this.getCreateDetailpanel();
@@ -77,7 +118,8 @@ class Rulespanel extends React.Component {
 
   add = () => {
     const { data } = this.state;
-    data.push({
+    const arr = data || [];
+    arr.push({
       type: [
         {
           value: 'zhejiang',
@@ -96,10 +138,10 @@ class Rulespanel extends React.Component {
       contentVal: '',
     });
     this.setState({
-      data,
+      data: arr,
     });
     setTimeout(() => {
-      this.rulesboxRef.current.scrollTop = 46 * data.length;
+      this.rulesboxRef.current.scrollTop = 46 * arr.length;
     }, 1);
   }
 
@@ -111,8 +153,7 @@ class Rulespanel extends React.Component {
     });
   }
 
-  loadData(selectedOptions, i) {
-    const { data } = this.state;
+  loadData(selectedOptions, i, data) {
     const targetOption = selectedOptions[selectedOptions.length - 1];
     targetOption.loading = true;
 
@@ -141,24 +182,31 @@ class Rulespanel extends React.Component {
     }, 1000);
   }
 
-  typeChange(value, i) {
-    const { data } = this.state;
+  typeChange(value, i, data) {
+    const { onChange } = this.props;
     const val = data[i].typeVal;
     if(val !== '') {
-      data[i].paramVal = val.join(',') !== value.join(',') ? '' : data[i].paramVal;
+      data[i].paramVal = JSON.stringify(val) !== JSON.stringify(value) ? '' : data[i].paramVal;
     }
     data[i].typeVal = value;
     this.setState({
-      data: [...this.state.data],
+      data,
     });
+    if(onChange) {
+      onChange(this.formatChangeData(data));
+    }
   }
 
   paramChange(value, i) {
+    const { onChange } = this.props;
     const { data } = this.state;
     data[i].paramVal = value;
     this.setState({
       data: [...this.state.data],
     });
+    if(onChange) {
+      onChange(this.formatChangeData(data));
+    }
   }
 
   contentChange(ev, i) {
@@ -170,7 +218,27 @@ class Rulespanel extends React.Component {
   }
 
   contentBlur(ev, i) {
+    const { onChange } = this.props;
+    const { data } = this.state;
+    data[i].contentVal = ev.target.value;
+    if(onChange) {
+      onChange(this.formatChangeData(data));
+    }
+  }
 
+  formatChangeData(data) {
+    const arr = [];
+    data.map(v => {
+      if(v.typeVal || v.paramVal || v.contentVal) {
+        arr.push({
+          ruleConfigId: v.typeVal[1],
+          ruleType: v.typeVal[0],
+          paramType: v.paramVal,
+          inputParam: v.contentVal,
+        });
+      }
+    });
+    return arr;
   }
   
   render() {
@@ -191,7 +259,7 @@ class Rulespanel extends React.Component {
           </Button>
           <div className="rules-box" ref={this.rulesboxRef}>
             {
-              data.map((v, i) => {
+              data && data.map((v, i) => {
                 return (
                   <div key={i} className="rules-group">
                     <Icon className="rules-close" type="close" onClick={() => this.del(i)} />
@@ -200,8 +268,8 @@ class Rulespanel extends React.Component {
                       size="small"
                       placeholder="请选择类型规则"
                       options={v.type}
-                      loadData={selectedOptions => this.loadData(selectedOptions, i)}
-                      onChange={value => this.typeChange(value, i)}
+                      loadData={selectedOptions => this.loadData(selectedOptions, i, data)}
+                      onChange={value => this.typeChange(value, i, data)}
                       defaultValue={["zhejiang", "dynamic1"]}
                       value={v.typeVal}
                     />

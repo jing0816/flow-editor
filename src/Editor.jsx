@@ -28,6 +28,7 @@ export default class Editor extends React.Component {
           message: ev.item.getModel().message,
           lineLogicExpression: ev.item.getModel().lineLogicExpression,
           paramCallback: ev.item.getModel().paramCallback,
+          ruleFormList: ev.item.getModel().ruleFormList,
         });
       });
       page.on('afterzoom', ev => {
